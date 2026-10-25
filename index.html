@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#14213D">
+<meta name="description" content="Curso de Aislamiento y Bloqueo de Energías (LOTO) de SSGI OTEC">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Curso LOTO">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Curso LOTO SSGI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: app de una columna (máx. 600px), barra superior navy, controles fijos abajo; motivo: tarjeta de bloqueo con perforación */
+:root{
+  --bg:#EDF0F5; --surface:#FFFFFF; --surface-2:#E2E7EF; --ink:#14213D; --ink-2:#4B5872; --line:#D2D9E5;
+  --navy:#14213D; --on-navy:#FFFFFF; --on-navy-2:#B9C3D6;
+  --amber:#F5A30F; --on-amber:#14213D; --red:#C92A2A; --on-red:#FFFFFF;
+  --ok:#1F7F73; --ok-bg:#DCF1EC; --bad-bg:#FBE4E4; --cream:#FFF0D2;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Barlow","Segoe UI",Roboto,Arial,sans-serif;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0B1322; --surface:#152039; --surface-2:#1D2A47; --ink:#E8ECF4; --ink-2:#A6B1C7; --line:#283757;
+  --navy:#0A111F; --ok:#4FC2B1; --ok-bg:#103733; --bad-bg:#3B1A1F; --cream:#332A12; --red:#EF6464; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0B1322; --surface:#152039; --surface-2:#1D2A47; --ink:#E8ECF4; --ink-2:#A6B1C7; --line:#283757;
+  --navy:#0A111F; --ok:#4FC2B1; --ok-bg:#103733; --bad-bg:#3B1A1F; --cream:#332A12; --red:#EF6464; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.5 var(--body);-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:20;background:var(--navy)}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;padding:0}
+button:focus-visible,input:focus-visible,video:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+h1,h2,h3{font-family:var(--display);font-weight:700;margin:0;line-height:1.08;text-wrap:balance}
+p{margin:0}
+svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.wrap{max-width:600px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* barra superior */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--navy);color:var(--on-navy)}
+.top .wrap{display:flex;align-items:center;gap:10px;min-height:58px;padding-block:8px}
+.ttl{flex:1;min-width:0}
+.ttl small{display:block;font:600 12px/1.2 var(--body);letter-spacing:1.4px;text-transform:uppercase;color:var(--amber)}
+.ttl b{display:block;font:700 20px/1.15 var(--display);letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ib{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:20px;background:rgba(255,255,255,.09)}
+.prog{height:4px;background:rgba(255,255,255,.14)}
+.prog i{display:block;height:100%;width:0;background:var(--amber);transition:width .3s}
+
+/* inicio */
+.hero{background:var(--navy);color:var(--on-navy);padding-block:20px 26px}
+.hero .wrap{display:grid;gap:16px}
+.eyebrow{font:700 12px/1 var(--body);letter-spacing:1.8px;text-transform:uppercase;color:var(--amber)}
+.hero h1{font-size:42px}
+.hero p{color:var(--on-navy-2);font-size:16px}
+.hrow{display:flex;gap:16px;align-items:center}
+.ring{--p:0;width:78px;height:78px;border-radius:50%;flex:none;display:grid;place-items:center;background:conic-gradient(var(--amber) calc(var(--p)*1%),rgba(255,255,255,.15) 0)}
+.ring b{width:62px;height:62px;border-radius:50%;background:var(--navy);display:grid;place-items:center;font:700 21px var(--display);font-variant-numeric:tabular-nums}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:54px;border-radius:12px;background:var(--amber);color:var(--on-amber);font:700 18px var(--body)}
+.btn.sec{background:var(--surface);border:2px solid var(--line);color:var(--ink)}
+.home{display:grid;gap:14px;padding-block:20px 40px}
+.sect{font:700 13px/1 var(--body);letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-2);margin-top:8px}
+
+/* tarjeta de bloqueo (módulo) */
+.tagc{display:grid;grid-template-columns:64px 1fr;gap:14px;align-items:start;text-align:left;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 16px 16px 14px}
+.tagc .hole{position:relative;height:88px;border-radius:10px;background:var(--navy);color:var(--amber);display:grid;place-items:end center;padding-bottom:12px;font:700 28px var(--display)}
+.tagc .hole::before{content:"";position:absolute;top:10px;left:50%;width:16px;height:16px;margin-left:-8px;border-radius:50%;background:var(--surface);box-shadow:inset 0 0 0 3px var(--amber)}
+.tagc.intro .hole{background:var(--amber);color:var(--on-amber)}
+.tagc.intro .hole::before{box-shadow:inset 0 0 0 3px var(--navy)}
+.tagc h3{font-size:23px}
+.tagc p{color:var(--ink-2);font-size:15px;margin-top:3px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.pill{display:inline-flex;align-items:center;gap:6px;font:600 13px/1 var(--body);padding:7px 10px;border-radius:99px;background:var(--surface-2);color:var(--ink-2)}
+.pill.ok{background:var(--ok-bg);color:var(--ok)}
+.pill.bad{background:var(--bad-bg);color:var(--red)}
+.res{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:12px}
+.res .row{display:flex;justify-content:space-between;align-items:center;gap:10px;font-variant-numeric:tabular-nums}
+.res .row span:first-child{color:var(--ink-2)}
+.res .tot{font:700 22px var(--display)}
+
+/* lección */
+.stage{padding-block:18px 160px}
+.slide{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;animation:in .25s ease}
+@keyframes in{from{opacity:.5;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide{animation:none}.prog i{transition:none}}
+.chip{justify-self:start;font:700 12px/1 var(--body);letter-spacing:1.4px;text-transform:uppercase;padding:7px 11px;border-radius:99px;background:var(--amber);color:var(--on-amber)}
+.slide h2{font-size:32px}
+.lead{font-size:18px;color:var(--ink-2)}
+.lbl{font:700 12px/1 var(--body);letter-spacing:1.4px;text-transform:uppercase;color:var(--ink-2)}
+.def{background:var(--navy);color:var(--on-navy);border-radius:var(--r);padding:18px 20px;display:grid;gap:8px}
+.def .lbl{color:var(--amber)}
+.def p{font:700 24px/1.22 var(--display)}
+.ph{background:#FFFFFF;border:1px solid var(--line);border-radius:var(--r);padding:10px;display:grid;place-items:center}
+.ph img{max-height:280px;max-width:100%;height:auto;width:auto;object-fit:contain;border-radius:6px}
+.phs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.phs .ph img{max-height:170px}
+.cards{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:grid;gap:6px;min-width:0}
+.card h3{font-size:21px}
+.card p{font-size:16px;color:var(--ink-2)}
+.card.red h3{color:var(--red)}
+.card.img{grid-template-columns:96px minmax(0,1fr);column-gap:14px;align-items:center}
+.card.img .pi{grid-row:span 3;background:#FFFFFF;border-radius:10px;padding:6px;display:grid;place-items:center;align-self:start}
+.card.img .pi img{max-height:84px;max-width:100%;width:auto;height:auto}
+.ctag{justify-self:start;font:700 12.5px/1 var(--body);padding:6px 9px;border-radius:6px;background:var(--cream);color:var(--ink)}
+.note{border-radius:var(--r);padding:14px 16px;display:grid;grid-template-columns:26px 1fr;gap:10px;font-weight:600;background:var(--cream);color:var(--ink)}
+.note svg{font-size:22px;margin-top:1px;color:var(--amber)}
+.note.dark{background:var(--navy);color:var(--on-navy)}
+.note.red{background:var(--red);color:var(--on-red)}
+.note.red svg,.note.dark svg{color:currentColor}
+ul.ls{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+ul.ls li{display:grid;grid-template-columns:28px 1fr;gap:10px;font-size:16.5px;align-items:start}
+ul.ls .mk{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:700 15px var(--display);background:var(--surface-2);color:var(--ink)}
+ul.ls.check .mk{background:var(--ok);color:#FFFFFF}
+ul.ls.x .mk{background:var(--red);color:#FFFFFF}
+ul.ls.num .mk{background:var(--navy);color:var(--amber)}
+ul.ls.bullet .mk{background:none}
+ul.ls.bullet .mk::before{content:"";width:9px;height:9px;border-radius:2px;background:var(--amber);transform:rotate(45deg)}
+ul.ls.x li,ul.ls.check li{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+ol.st{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:s}
+ol.st li{counter-increment:s;display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+ol.st li::before{content:counter(s);width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:var(--amber);font:700 20px var(--display)}
+ol.st li b{display:block;font:700 19px/1.15 var(--display)}
+ol.st li span{color:var(--ink-2);font-size:15.5px}
+.energy{display:grid;gap:10px}
+.energy .card h3{display:flex;align-items:center;gap:8px}
+.energy dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:15.5px}
+.energy dt{font-weight:700;color:var(--ink)}
+.energy dd{margin:0;color:var(--ink-2)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{font:600 15px/1 var(--body);padding:10px 12px;border-radius:10px;background:var(--surface);border:1px solid var(--line)}
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px}
+.sw div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px;display:grid;justify-items:center;gap:6px;text-align:center;font:600 14px/1.2 var(--body)}
+.sw img{height:70px;width:auto;background:#FFFFFF;border-radius:6px}
+video{width:100%;max-width:100%;border-radius:var(--r);background:#000000;aspect-ratio:16/9}
+
+/* test */
+.qn{font:700 14px var(--body);letter-spacing:1.3px;text-transform:uppercase;color:var(--ink-2)}
+.dots{display:flex;gap:6px}
+.dots i{flex:1;height:6px;border-radius:3px;background:var(--surface-2)}
+.dots i.ok{background:var(--ok)}.dots i.bad{background:var(--red)}.dots i.cur{background:var(--amber)}
+.qt{font:700 26px/1.18 var(--display)}
+.opts{display:grid;gap:10px}
+.opt{display:grid;grid-template-columns:42px 1fr 22px;gap:12px;align-items:center;text-align:left;width:100%;min-height:60px;background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:10px 12px;font-size:16.5px}
+.opt .l{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--amber);color:var(--on-amber);font:700 20px var(--display)}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}.opt.ok .l{background:var(--ok);color:#FFFFFF}
+.opt.bad{border-color:var(--red);background:var(--bad-bg)}.opt.bad .l{background:var(--red);color:#FFFFFF}
+.opt[disabled]{cursor:default}.opt.dim{opacity:.5}
+.opt svg{font-size:22px}
+.fb{border-radius:var(--r);padding:14px 16px;display:grid;gap:4px}
+.fb.ok{background:var(--ok-bg)}.fb.bad{background:var(--bad-bg)}
+.fb b{font:700 21px var(--display)}
+.big{font:700 72px/1 var(--display);color:var(--amber);font-variant-numeric:tabular-nums}
+input[type=text]{width:100%;min-height:52px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;padding:0 14px}
+.cert{background:var(--surface);border:2px solid var(--navy);border-radius:var(--r);padding:20px;display:grid;gap:10px;text-align:center}
+.cert h3{font-size:28px}
+.cert .who{font:700 30px/1.1 var(--display);color:var(--ink)}
+.small{font-size:14px;color:var(--ink-2)}
+
+/* controles inferiores */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:10;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.dock .wrap{display:grid;grid-template-columns:52px 1fr 52px;gap:12px;align-items:center;padding-block:10px}
+.nv{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-size:22px;background:var(--surface-2)}
+.nv.next{background:var(--amber);color:var(--on-amber)}
+.nv[disabled]{opacity:.35;cursor:default}
+.mid{display:grid;gap:6px;min-width:0}
+.au{display:flex;align-items:center;gap:10px}
+.pl{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:var(--amber);font-size:18px;flex:none}
+.tr{flex:1;height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden;cursor:pointer}
+.tr i{display:block;height:100%;width:0;background:var(--amber)}
+.sub{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.tog{display:inline-flex;align-items:center;gap:6px}
+.tog input{accent-color:var(--amber);width:16px;height:16px;margin:0}
+.spd{font:700 13px var(--body);padding:3px 8px;border-radius:6px;background:var(--surface-2)}
+</style>
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <button class="ib" id="back" aria-label="Volver al inicio" hidden></button>
+    <div class="ttl"><small id="tsub">SSGI OTEC · Curso</small><b id="ttl">Aislamiento y Bloqueo de Energías</b></div>
+  </div>
+  <div class="prog"><i id="bar"></i></div>
+</header>
+<main id="app"></main>
+<nav class="dock" id="dock" hidden aria-label="Controles de la lección">
+  <div class="wrap">
+    <button class="nv" id="prev" aria-label="Lección anterior"></button>
+    <div class="mid">
+      <div class="au">
+        <button class="pl" id="play" aria-label="Reproducir narración"></button>
+        <div class="tr" id="tr"><i id="trk"></i></div>
+      </div>
+      <div class="sub"><button class="spd" id="spd" aria-label="Velocidad de narración">1×</button><label class="tog"><input type="checkbox" id="auto" checked> Narración auto</label></div>
+    </div>
+    <button class="nv next" id="next" aria-label="Lección siguiente"></button>
+  </div>
+</nav>
+<audio id="au" preload="none"></audio>
+
+<script>
+const DATA = {"intro":{"lessons":[{"title":"Bienvenida","audio":"audio/app_bienvenida.mp3","blocks":[{"k":"img","src":"img/s1_image6.jpg"},{"k":"lead","t":"Curso de Aislamiento y Bloqueo de Energías Peligrosas (LOTO), dictado por SSGI OTEC. Relator: Néstor Zamora Neira."},{"k":"cards","items":[{"h":"Escucha cada lección","d":"Toca el botón de reproducción para oír la explicación del relator."},{"h":"Avanza a tu ritmo","d":"Tu progreso queda guardado en este teléfono."},{"h":"Responde los tests","d":"5 preguntas por módulo, con corrección y explicación inmediata."},{"h":"Aprueba el curso","d":"Necesitas 75 % de respuestas correctas: 15 de 20."}]}]},{"title":"Objetivos del curso","audio":"audio/n003.mp3","blocks":[{"k":"lead","t":"Evitar accidentes laborales en operaciones industriales en que se trabaje en presencia de energías peligrosas.","label":"Objetivo general"},{"k":"list","style":"check","label":"Al terminar podrás","items":["Identificar las energías peligrosas","Entender cómo controlar las energías peligrosas","Distinguir los elementos necesarios para su control","Aplicar el protocolo de aislamiento y bloqueo (LOTO)"]}]}]},"modules":[{"n":"I","title":"Fundamentos de la energía","sub":"Energía · Tipos de energía · Energías peligrosas · Identificación de fuentes","img":"img/s5_image11.png","lessons":[{"title":"Introducción","audio":"audio/n005.mp3","blocks":[{"k":"img","src":"img/s5_image11.png"},{"k":"lead","t":"Energía · Tipos de energía · Energías peligrosas · Identificación de fuentes"}]},{"title":"¿Qué es la energía?","audio":"audio/n006.mp3","blocks":[{"k":"def","term":"Energía","t":"Capacidad que tiene la materia de producir trabajo en forma de movimiento, luz, calor, etc."},{"k":"img","src":"img/s6_image12.png"},{"k":"list","style":"bullet","items":["La energía no se crea ni se destruye: se transforma.","Si un equipo puede moverse, calentarse, presurizarse o electrizarse, contiene energía."]}]},{"title":"Tipos de energía y su control (1 de 2)","audio":"audio/n007.mp3","blocks":[{"k":"energy","items":[{"h":"Eléctrica","ej":"Cables eléctricos, motores, tableros","c":"Desenergizar, bloquear y aislar"},{"h":"Neumática","ej":"Líneas de aire comprimido, válvulas neumáticas","c":"Interrumpir el suministro de aire cerrando y bloqueando válvulas de paso"},{"h":"Hidráulica","ej":"Líneas de agua y pulpa, sistemas hidráulicos de lubricación y accionamiento","c":"Detener bombas; cerrar y bloquear válvulas de paso"},{"h":"Cinética","ej":"Correas transportadoras, molinos, filtros, bombas, horno rotatorio","c":"Frenos o prensas; drenar la descarga de la bomba; dejar rotar hasta el reposo"}]}]},{"title":"Tipos de energía y su control (2 de 2)","audio":"audio/n008.mp3","blocks":[{"k":"energy","items":[{"h":"Potencial","ej":"Cargas suspendidas, líneas en altura, resortes comprimidos","c":"Bajar o calzar la carga; aislar y acordonar el lugar de trabajo"},{"h":"Calórica (térmica)","ej":"Quemadores de carbón o petróleo, líneas de vapor, equipos de oxicorte","c":"Cerrar y bloquear válvulas de paso; esperar enfriamiento"},{"h":"Química","ej":"Líneas de ácido, soluciones cáusticas, transporte y adición de reactivos","c":"Detener bombas, drenar líneas, cerrar y bloquear válvulas de paso"},{"h":"Radiaciones ionizantes","ej":"Densímetros nucleares","c":"Obturar y bloquear la fuente"}]}]},{"title":"Energía peligrosa","audio":"audio/n009.mp3","blocks":[{"k":"def","term":"Definición","t":"Es toda energía presente en los procesos industriales que, sin el control adecuado, es capaz de provocar daños graves a las personas e incluso la muerte."},{"k":"imgs","srcs":["img/s10_image16.jpg","img/s10_image15.jpg"]}]},{"title":"Un equipo, múltiples fuentes de energía","audio":"audio/n010.mp3","blocks":[{"k":"lead","t":"En un mismo equipo o sistema pueden coexistir varias fuentes:"},{"k":"list","style":"bullet","items":["Eléctrica de fuerza y de control","Vapor y agua caliente","Neumática / aire comprimido","Hidráulica / fluidos bajo presión","Resortes y piezas elevadas (energía almacenada)"]},{"k":"callout","t":"Todas las fuentes deben ser controladas, aplicando un candado y una tarjeta en cada punto de aislamiento."},{"k":"imgs","srcs":["img/s12_image19.png","img/s12_image18.jpg"]}]},{"title":"Energía residual o almacenada","audio":"audio/n011.mp3","blocks":[{"k":"lead","t":"Aunque el equipo esté detenido y desconectado, puede conservar energía:"},{"k":"list","style":"bullet","items":["Condensadores y bancos de condensadores cargados","Acumuladores hidráulicos y líneas presurizadas","Resortes tensos o comprimidos","Volantes e inercia de piezas en rotación","Cargas elevadas por gravedad","Superficies y fluidos calientes"]},{"k":"callout","t":"Detener y desconectar no es suficiente: la energía residual se libera, drena o bloquea antes de intervenir."},{"k":"img","src":"img/s1_image7.jpg"}]},{"title":"Ejercicio: encuentra las fuentes de energía","audio":"audio/app_ejercicio.mp3","blocks":[{"k":"img","src":"img/s14_image22.png"},{"k":"list","style":"num","items":["¿Qué fuentes de energía pueden estar presentes en este sistema de alimentación de producto químico?","¿Cuáles de ellas pueden almacenar energía?","¿Qué podría salir mal si se interviene sin controlarlas?"]},{"k":"callout","t":"Piensa tus respuestas antes de pasar a la solución."}]},{"title":"Solución del ejercicio","audio":"audio/n013.mp3","blocks":[{"k":"groups","items":[{"h":"Fuentes presentes","items":["Eléctrica (circuitos de fuerza y control)","Química (líquidos bajo presión)","Agua caliente (líquido a presión y temperatura)","Gas natural (inflamable y bajo presión)"]},{"h":"Peligros si no se controlan","items":["Exposición química","Quemaduras","Choque eléctrico","Contusiones, explosión e incendio"]},{"h":"Cómo hacerlo seguro","items":["Analizar el riesgo antes de intervenir","Seguir el procedimiento LOTO","Usar EPP para piel, ojos y cara","Verificar energía cero"]}]}]},{"title":"Ideas clave del Módulo I","audio":"audio/n014.mp3","blocks":[{"k":"list","style":"check","items":["La energía es la capacidad de producir trabajo y solo se transforma.","Existen al menos ocho tipos de energía en la industria, cada una con su método de control.","Una energía es peligrosa cuando, sin control, puede dañar gravemente a una persona.","Un mismo equipo puede tener varias fuentes: todas deben controlarse.","La energía residual se libera o bloquea antes de intervenir."]}]}],"quiz":[{"q":"¿Cuál es la definición correcta de energía?","o":["Fuerza que solo producen los motores eléctricos","Capacidad que tiene la materia de producir trabajo en forma de movimiento, luz, calor, etc.","Sustancia que se consume y desaparece al detener un equipo","Presión de un fluido dentro de una tubería"],"a":1,"e":"La energía es la capacidad de la materia de producir trabajo. No desaparece al detener un equipo: se transforma y puede quedar almacenada."},{"q":"Una carga suspendida sobre el área de trabajo representa principalmente energía:","o":["Cinética","Química","Potencial","Calórica"],"a":2,"e":"Una carga elevada almacena energía potencial por gravedad. Se controla bajándola o calzándola, y aislando y acordonando el área."},{"q":"¿Cuál es el método de control sugerido para la energía neumática?","o":["Interrumpir el suministro de aire cerrando y bloqueando las válvulas de paso","Esperar a que el equipo se enfríe","Obturar la fuente radiactiva","Desconectar solo el botón de parada"],"a":0,"e":"La energía neumática se controla interrumpiendo el aire comprimido: cerrando y bloqueando válvulas de paso, y purgando la presión remanente."},{"q":"¿Qué hace que una energía sea considerada 'peligrosa'?","o":["Que sea de alta tensión eléctrica","Que el equipo sea nuevo","Que se use en turnos de noche","Que, sin el control adecuado, pueda causar daños graves o la muerte"],"a":3,"e":"Cualquier tipo de energía, no solo la eléctrica, es peligrosa si su liberación descontrolada puede dañar gravemente a las personas."},{"q":"Un equipo tiene motor eléctrico, un resorte tensado y una línea hidráulica. ¿Qué fuentes se deben controlar antes de intervenir?","o":["Solo la eléctrica","Todas las fuentes de energía","Solo la de mayor potencia","Las que indique el operador por radio"],"a":1,"e":"Todas las fuentes, incluida la energía almacenada en el resorte y la presión hidráulica, deben aislarse, bloquearse y verificarse."}]},{"n":"II","title":"Control de energías peligrosas","sub":"Por qué y cuándo aplicar LOTO · Consecuencias · Normativa · Programa y roles","img":"img/s16_image24.png","lessons":[{"title":"Introducción","audio":"audio/n026.mp3","blocks":[{"k":"img","src":"img/s16_image24.png"},{"k":"lead","t":"Por qué y cuándo aplicar LOTO · Consecuencias · Normativa · Programa y roles"}]},{"title":"¿Para qué sirve el aislamiento y bloqueo?","audio":"audio/n027.mp3","blocks":[{"k":"cards","items":[{"h":"Evitar la puesta en marcha involuntaria","d":"Controla las energías peligrosas para que el equipo no pueda arrancar ni liberar energía mientras una persona o grupo lo interviene."},{"h":"Dar certeza a cada trabajador","d":"Antes de comenzar, todos deben estar seguros de que cada energía involucrada está efectivamente controlada, bloqueada y probada."}]},{"k":"callout","t":"El objetivo final: que nuestro cuerpo nunca entre en contacto con la energía."},{"k":"img","src":"img/s18_image26.jpg"}]},{"title":"¿Cuándo se debe aplicar?","audio":"audio/n028.mp3","blocks":[{"k":"callout","t":"Siempre que se trabaje en un equipo con una o varias fuentes de energía y sea necesario exponer cualquier parte del cuerpo.","tone":"dark"},{"k":"chips","label":"Tareas que requieren bloqueo","items":["Ajuste","Inspección","Instalación","Modificación","Reemplazo de partes","Remover atascamientos","Lubricación","Limpieza"]}]},{"title":"Consecuencias de no controlar la energía","audio":"audio/n029.mp3","blocks":[{"k":"cards","items":[{"h":"Aceite a alta presión","d":"Inyección de fluido bajo la piel; requiere cirugía urgente","img":"img/s21_image28.png","tone":"red"},{"h":"Eléctrica de media tensión","d":"Quemaduras profundas con necrosis de tejidos","img":"img/s23_image32.png","tone":"red"},{"h":"Energía potencial","d":"Golpes y aplastamiento por caída de cargas","img":"img/s24_image33.jpg","tone":"red"},{"h":"Mecánica en mezclador","d":"Atrapamiento y amputaciones","img":"img/s25_image36.jpg","tone":"red"}]}]},{"title":"Marco normativo","audio":"audio/n030.mp3","blocks":[{"k":"cards","items":[{"tag":"OSHA 29 CFR 1910.147","h":"Control de energía peligrosa (Lockout/Tagout)","d":"Prácticas y procedimientos para desactivar máquinas y equipos y evitar la liberación de energía durante la mantención: eléctrica, mecánica, hidráulica, neumática, química y térmica."},{"tag":"OSHA 29 CFR 1910.333","h":"Prácticas de trabajo eléctrico seguro","d":"Requisitos de protección para trabajadores que intervienen equipos o circuitos eléctricos."},{"tag":"Chile","h":"Ley 16.744 y reglamentos de gestión preventiva","d":"El empleador debe identificar los peligros y aplicar medidas de control eficaces. LOTO es el estándar reconocido para controlar energías peligrosas."}]}]},{"title":"Programa de control de energías peligrosas","audio":"audio/n031.mp3","blocks":[{"k":"lead","t":"La empresa debe desarrollar un plan escrito para aislar la energía de máquinas y equipos donde un arranque repentino o la energía almacenada puedan dañar a las personas. Para ello debe:"},{"k":"cards","items":[{"h":"Procedimientos","d":"Procedimientos de bloqueo y etiquetado específicos por equipo"},{"h":"Dispositivos","d":"Dispositivos de bloqueo, candados y tarjetas para el personal autorizado"},{"h":"Capacitación","d":"Para empleados autorizados, afectados y otros empleados"},{"h":"Inspección periódica","d":"Revisar que los procedimientos se aplican correctamente"}]}]},{"title":"Qué debe cubrir un protocolo de aislamiento y bloqueo","audio":"audio/n032.mp3","blocks":[{"k":"list","style":"num","items":["Planificar: identificar las fuentes de energía y las personas autorizadas","Coordinar con otros trabajos que se estén realizando","Asegurar que el equipo no tenga energía y no pueda ponerse en movimiento","Liberar la energía almacenada (condensadores, líneas de agua o aire)","Realizar verificaciones","Poner y quitar dispositivos de bloqueo y tarjetas","Volver a poner el equipo en servicio, con pruebas y resguardos instalados"]}]},{"title":"Roles definidos por la norma","audio":"audio/n033.mp3","blocks":[{"k":"cards","items":[{"h":"Empleado autorizado","d":"Repara o da servicio a la maquinaria e instala los bloqueos."},{"h":"Empleado afectado","d":"Opera la maquinaria o equipos, pero no les da mantención."},{"h":"Otro empleado","d":"Trabaja cerca de la maquinaria y los equipos; debe conocer y respetar los bloqueos."}]},{"k":"callout","t":"Si una persona opera y también mantiene el equipo, debe capacitarse como empleado autorizado."}]},{"title":"Responsabilidades del empleado autorizado","audio":"audio/n034.mp3","blocks":[{"k":"list","style":"check","items":["Identificar todas las fuentes de energía","Informar al personal afectado (cliente interno)","Usar los procedimientos establecidos","Aplicar los dispositivos de bloqueo y etiquetado","Desenergizar y liberar toda energía residual","Verificar que dispositivos, candados y tarjetas estén bien instalados","Seguir los procedimientos para reenergizar","Informar al personal afectado al terminar"]},{"k":"img","src":"img/s31_image41.jpg"}]},{"title":"Responsabilidades del empleado afectado","audio":"audio/n035.mp3","blocks":[{"k":"list","style":"check","items":["Operar la maquinaria o equipos de forma segura","Conocer los procedimientos de control de energía","Notificar al personal de mantenimiento","Dejar todos los dispositivos de bloqueo y etiquetado en su sitio","Verificar que sea seguro operar el equipo","Asegurar que las barreras de seguridad estén en su lugar y funcionando","Cumplir con todas las reglas de seguridad"]},{"k":"img","src":"img/s33_image43.jpg"}]},{"title":"Ideas clave del Módulo II","audio":"audio/n036.mp3","blocks":[{"k":"list","style":"check","items":["LOTO evita la puesta en marcha involuntaria y la liberación inesperada de energía.","Se aplica siempre que una parte del cuerpo quede expuesta a un equipo con energía.","OSHA 29 CFR 1910.147 es la referencia internacional; en Chile, la Ley 16.744 exige controlar los riesgos.","La empresa debe dar procedimientos, dispositivos, capacitación e inspección.","Existen tres roles: autorizado, afectado y otros empleados."]}]}],"quiz":[{"q":"¿Cuándo se debe aplicar el aislamiento y bloqueo de energías?","o":["Solo cuando lo pide el supervisor","Solo en equipos eléctricos de alta tensión","Siempre que se intervenga un equipo con energía y se exponga alguna parte del cuerpo","Únicamente en mantenciones mayores programadas"],"a":2,"e":"La regla no depende del tipo de tarea ni de su duración: si una parte del cuerpo queda expuesta a un equipo con energía, se bloquea."},{"q":"¿Qué norma OSHA regula específicamente el control de energía peligrosa (Lockout/Tagout)?","o":["29 CFR 1910.147","29 CFR 1910.333","ISO 9001","29 CFR 1926.500"],"a":0,"e":"La 29 CFR 1910.147 regula el control de energía peligrosa. La 1910.333 complementa con prácticas de trabajo eléctrico seguro."},{"q":"La persona que repara la maquinaria e instala los bloqueos es el:","o":["Empleado afectado","Empleado autorizado","Otro empleado","Visitante"],"a":1,"e":"El empleado autorizado repara o da servicio e instala los bloqueos. El afectado opera; los otros empleados trabajan cerca."},{"q":"¿Cuál de las siguientes NO es una obligación de la empresa en su programa de control?","o":["Proporcionar procedimientos de bloqueo y etiquetado","Entregar dispositivos, candados y tarjetas","Capacitar a empleados autorizados, afectados y otros","Dejar que cada trabajador decida si bloquea o no"],"a":3,"e":"El bloqueo no es opcional. La empresa debe asegurar procedimientos, dispositivos, capacitación e inspección periódica."},{"q":"¿Cuál es un ejemplo de 'liberar la energía almacenada'?","o":["Colocar la tarjeta en el tablero","Descargar condensadores o drenar líneas de agua o aire","Avisar al supervisor por radio","Apagar la iluminación del área"],"a":1,"e":"Liberar la energía almacenada es eliminar la energía residual: descargar condensadores, drenar líneas, purgar presión, bajar cargas."}]},{"n":"III","title":"Elementos de bloqueo y etiquetado","sub":"Dispositivos · Candados · Tarjetas · Bloqueo grupal · Barreras físicas","img":"img/s38_image65.jpg","lessons":[{"title":"Introducción","audio":"audio/n048.mp3","blocks":[{"k":"img","src":"img/s38_image65.jpg"},{"k":"lead","t":"Dispositivos · Candados · Tarjetas · Bloqueo grupal · Barreras físicas"}]},{"title":"Kit básico de bloqueo y etiquetado","audio":"audio/n049.mp3","blocks":[{"k":"cards","items":[{"h":"Dispositivo para cortacircuitos","d":"Se aprieta sobre la palanca del interruptor y se cierra con candado","img":"img/s35_image53.jpg"},{"h":"Dispositivo multipolo","d":"Para interruptores de varios polos o barra de unión","img":"img/s35_image55.jpg"},{"h":"Porta-candado (pinza)","d":"Permite que varias personas bloqueen un mismo punto","img":"img/s35_image54.jpg"},{"h":"Candado personal","d":"Impide que la fuente sea reenergizada","img":"img/s35_image56.jpg"},{"h":"Tarjetas de control","d":"Se completan con los datos del trabajador en cada bloqueo","img":"img/s35_image57.jpg"},{"h":"Dispositivo para enchufes","d":"Encierra el enchufe del equipo para impedir su conexión","img":"img/s35_image58.jpg"}]},{"k":"callout","t":"Existe un dispositivo para cada punto de aislamiento. Si no sabes cómo bloquear uno, consulta a tu supervisor."}]},{"title":"Dispositivos para válvulas y líneas","audio":"audio/n050.mp3","blocks":[{"k":"cards","items":[{"h":"Válvula de bola","d":"Con la manilla en posición cerrada, se encierra manilla y cuerpo, y se asegura con candado y tarjeta.","img":"img/s36_image59.jpg"},{"h":"Válvula de compuerta","d":"Cubre el volante redondo e impide girarlo; se asegura con candado y tarjeta.","img":"img/s36_image60.png"},{"h":"Desconexión neumática","d":"Aloja el extremo macho de la manguera neumática para impedir su reconexión.","img":"img/s36_image61.jpg"}]}]},{"title":"Requisitos de los dispositivos de bloqueo","audio":"audio/n051.mp3","blocks":[{"k":"cards","items":[{"h":"Durables","d":"Resisten el ambiente de trabajo: humedad, químicos, temperatura."},{"h":"Estandarizados","d":"Mismo color, forma o tamaño en toda la faena; se reconocen de inmediato."},{"h":"Firmes","d":"No pueden retirarse sin herramientas especiales o fuerza excesiva."}]},{"k":"chips","label":"Medios existentes","items":["Dispositivos de bloqueo","Candados","Tarjetas","Cadenas","Barreras físicas","Otros medios"]},{"k":"img","src":"img/s37_image63.png"}]},{"title":"Candados de bloqueo: reglas de uso","audio":"audio/n052.mp3","blocks":[{"k":"list","style":"bullet","items":["Son personales: identificados con el número de control del trabajador en el cuerpo y en su llave","Del mismo tipo y fáciles de reconocer como candados de bloqueo","Deben identificar quién lo colocó: nombre, número o ambos","Suficientemente firmes para que no se retiren con facilidad","Un candado por cada fuente de energía a bloquear","Adecuados a la energía: dieléctricos para sistemas eléctricos"]},{"k":"callout","t":"Un candado, una persona, una llave. Nunca se presta la llave ni se usa el candado de otro."},{"k":"imgs","srcs":["img/s38_image66.png","img/s38_image64.jpg"]}]},{"title":"Candados según color (ejemplo de estándar de faena)","audio":"audio/n053.mp3","blocks":[{"k":"swatches","items":[{"img":"img/s39_image67.jpg","t":"Operaciones"},{"img":"img/s39_image68.jpg","t":"Mantenimiento"},{"img":"img/s39_image69.jpg","t":"Electricidad"},{"img":"img/s39_image70.jpg","t":"Química y Metalurgia"},{"img":"img/s39_image71.jpg","t":"Servicios"},{"img":"img/s39_image72.jpg","t":"Prevención de Riesgos"},{"img":"img/s39_image73.jpg","t":"Contratistas"}]},{"k":"callout","t":"Cada empresa define su propio código de colores: verifica el estándar vigente en tu faena."}]},{"title":"Tarjetas de bloqueo","audio":"audio/n054.mp3","blocks":[{"k":"lead","t":"Identifican al propietario del candado y comunican a los demás que en el equipo hay una persona trabajando bajo la protección de un bloqueo."},{"k":"img","src":"img/s40_image74.png"},{"k":"groups","items":[{"h":"Contenido mínimo","items":["Nombre del trabajador","Departamento o empresa","Fecha y área","Fotografía (opcional)"]},{"h":"Leyendas","items":["PELIGRO","ESTE EQUIPO NO DEBE SER OPERADO","NO REMOVER ESTE DISPOSITIVO DE SEGURIDAD"]}]},{"k":"callout","t":"La tarjeta informa, pero no reemplaza al candado.","tone":"dark"}]},{"title":"Tipos de tarjetas","audio":"audio/n055.mp3","blocks":[{"k":"cards","items":[{"h":"Permanente","d":"Con los datos ya impresos, de material durable y con reglas básicas de seguridad al reverso. Para el personal propio.","img":"img/s41_image75.jpg"},{"h":"Temporal","d":"Para visitas, contratistas temporales y otras aplicaciones. Se usa una sola vez por actividad y puede archivarse como evidencia del programa.","img":"img/s41_image76.jpg"}]}]},{"title":"Bloqueo grupal","audio":"audio/n056.mp3","blocks":[{"k":"cards","items":[{"h":"Porta-candado o pinza","d":"Se instala en el punto de aislamiento y cada trabajador coloca su propio candado. El equipo no puede energizarse hasta que se retire el último candado.","img":"img/s34_image48.jpg"},{"h":"Caja de bloqueo (Lock Box)","d":"Cuando hay muchos puntos de aislamiento, las llaves de los candados de los puntos se guardan en la caja y cada trabajador bloquea la caja con su candado personal.","img":"img/s34_image50.jpg"}]}]},{"title":"Barreras físicas y bloqueos mecánicos","audio":"audio/n057.mp3","blocks":[{"k":"lead","t":"Cuando la energía no puede eliminarse con un interruptor o una válvula, se usan barreras físicas:"},{"k":"list","style":"bullet","items":["Calzas y pasadores de seguridad para tolvas y cajas de camión elevadas","Bloques de seguridad (safety blocks) entre los platos de prensas","Cadenas y trabas para volantes y piezas móviles","Barreras y cintas para acordonar el área"]},{"k":"imgs","srcs":["img/s44_image80.png","img/s44_image79.png"]}]},{"title":"Práctica: componentes de un bloqueo","audio":"audio/n058.mp3","blocks":[{"k":"video","src":"video/practica1.mp4","poster":"img/s42_image77.png"},{"k":"lead","t":"Toca el video para reproducirlo. Puedes verlo en pantalla completa."}]},{"title":"Ideas clave del Módulo III","audio":"audio/n059.mp3","blocks":[{"k":"list","style":"check","items":["Existe un dispositivo para cada punto de aislamiento: eléctrico, válvulas, enchufes y líneas.","Los dispositivos deben ser durables, estandarizados y firmes.","Candado personal e intransferible: un candado por cada fuente a bloquear.","La tarjeta comunica e identifica, pero nunca reemplaza al candado.","En el trabajo en grupo, cada persona coloca su propio candado (pinza o caja de bloqueo)."]}]}],"quiz":[{"q":"Los dispositivos de bloqueo deben cumplir con ser:","o":["Livianos, baratos y de cualquier color","Durables, estandarizados y firmes","Desechables después de cada uso","Fáciles de retirar por cualquier persona"],"a":1,"e":"Durables para resistir el ambiente, estandarizados para reconocerse de inmediato y firmes para que no se retiren con facilidad."},{"q":"¿Cuántos candados debe tener un trabajador autorizado?","o":["Uno solo, para todo el equipo","Dos, uno eléctrico y uno mecánico","Tantos como fuentes de energía requiera bloquear","Ninguno: usa el candado del supervisor"],"a":2,"e":"Cada fuente de energía se bloquea con un candado personal; por eso el trabajador necesita tantos candados como fuentes deba bloquear."},{"q":"Para bloquear sistemas con energía eléctrica se recomiendan candados:","o":["Dieléctricos","De bronce macizo","Con clave numérica compartida","De cualquier material disponible"],"a":0,"e":"Los candados dieléctricos no conducen electricidad, reduciendo el riesgo al instalarlos en tableros e interruptores."},{"q":"¿Cuál es la función principal de la tarjeta de bloqueo?","o":["Reemplazar al candado cuando no hay uno disponible","Identificar al dueño del candado y comunicar que hay una persona trabajando bajo bloqueo","Registrar las horas trabajadas","Indicar el valor del equipo"],"a":1,"e":"La tarjeta identifica y comunica. Siempre se usa junto al candado, nunca en su reemplazo."},{"q":"Cuando tres trabajadores intervienen el mismo equipo y comparten un punto de aislamiento, se debe:","o":["Usar el candado del más antiguo","Colocar solo la tarjeta del supervisor","Instalar un porta-candado y que cada uno ponga su propio candado","Turnarse para bloquear"],"a":2,"e":"Con el porta-candado (o caja de bloqueo) cada trabajador mantiene su propia protección; el equipo no se energiza hasta retirar el último candado."}]},{"n":"IV","title":"Aplicación del protocolo LOTO","sub":"Los 7 pasos · Energía cero · Reactivación · Taller demostrativo","img":"img/s49_image104.jpg","lessons":[{"title":"Introducción","audio":"audio/n071.mp3","blocks":[{"k":"img","src":"img/s49_image104.jpg"},{"k":"lead","t":"Los 7 pasos · Energía cero · Reactivación · Taller demostrativo"}]},{"title":"Protocolo general: 7 pasos","audio":"audio/n072.mp3","blocks":[{"k":"steps","items":[{"h":"Coordinar","d":"la paralización de la máquina o equipo"},{"h":"Detener","d":"la máquina o equipo (en secuencia si el proceso lo requiere)"},{"h":"Desenergizar","d":"operando los dispositivos de aislamiento"},{"h":"Instalar bloqueo","d":"dispositivo + candado + tarjeta"},{"h":"Eliminar energía residual","d":"descargar, drenar, purgar, calzar"},{"h":"Verificar energía cero","d":"medir y comprobar ausencia de energía"},{"h":"Probar encendido","d":"intentar el arranque y volver los mandos a OFF"}]}]},{"title":"El paso que salva vidas: verificar energía cero","audio":"audio/n073.mp3","blocks":[{"k":"steps","items":[{"h":"Medir","d":"Con instrumento adecuado y probado antes y después (voltímetro, manómetro)."},{"h":"Intentar el arranque","d":"Accionar los mandos locales y remotos: el equipo no debe partir."},{"h":"Volver a OFF","d":"Dejar todos los mandos en posición de apagado tras la prueba."}]},{"k":"callout","t":"Bloquear el botón de parada o el circuito de control NO aísla la energía. El bloqueo se instala en el dispositivo de aislamiento de fuerza.","tone":"red"}]},{"title":"Reactivación segura del equipo","audio":"audio/n074.mp3","blocks":[{"k":"list","style":"num","items":["Inspeccionar el área y retirar herramientas y materiales","Reinstalar resguardos y dispositivos de seguridad","Verificar que todo el personal esté en zona segura y avisar a los afectados","Cada trabajador retira su propio candado y tarjeta","Reenergizar y realizar la prueba de funcionamiento"]},{"k":"callout","t":"Solo quien instaló el candado puede retirarlo.","tone":"dark"}]},{"title":"Taller: mantenimiento de un motor eléctrico","audio":"audio/n075.mp3","blocks":[{"k":"lead","t":"Bloqueo individual","label":"Ejercicio"},{"k":"list","style":"num","items":["Coordinar la paralización del motor","Detener el motor","Desenergizar: desconectar los automáticos de fuerza y control en el tablero TF","Instalar bloqueo: dispositivo + candado + tarjeta","Eliminar energía residual: desconectar el condensador","Verificar energía cero: medir 0 V con voltímetro aguas abajo de los automáticos","Prueba de partida del motor"]},{"k":"img","src":"img/s43_image78.png"}]},{"title":"Práctica: secuencia de instalación de bloqueo","audio":"audio/n076.mp3","blocks":[{"k":"video","src":"video/practica2.mp4","poster":"img/s52_image105.png"},{"k":"lead","t":"Toca el video para reproducirlo. Puedes verlo en pantalla completa."}]},{"title":"Errores frecuentes que causan accidentes","audio":"audio/n077.mp3","blocks":[{"k":"list","style":"x","items":["Bloquear solo el botón de parada o el circuito de control","Omitir la verificación de energía cero","Olvidar la energía residual (presión, resortes, condensadores)","Prestar la llave o usar el candado de otra persona","Retirar un candado ajeno o «por mientras»","No bloquear en tareas «rápidas»: atascos, limpieza, ajustes"]}]},{"title":"Ideas clave del Módulo IV","audio":"audio/n078.mp3","blocks":[{"k":"list","style":"check","items":["Siete pasos: coordinar, detener, desenergizar, bloquear, eliminar energía residual, verificar y probar.","Verificar energía cero es obligatorio: medir e intentar el arranque.","El bloqueo se instala en el aislamiento de fuerza, no en el mando de parada.","Reactivar con el área despejada, resguardos instalados y personal avisado.","Solo quien instaló el candado puede retirarlo."]}]}],"quiz":[{"q":"¿Cuál es el primer paso del protocolo general de aislamiento y bloqueo?","o":["Instalar el candado","Coordinar la paralización de la máquina o equipo","Verificar energía cero","Desenergizar"],"a":1,"e":"Todo comienza coordinando con operaciones y con las personas afectadas. Sin coordinación, la detención puede generar nuevos riesgos."},{"q":"Después de instalar el bloqueo, el siguiente paso es:","o":["Comenzar el trabajo de inmediato","Retirar la tarjeta","Eliminar la energía residual","Avisar que el trabajo terminó"],"a":2,"e":"Paso 4: instalar bloqueo. Paso 5: eliminar energía residual. Paso 6: verificar energía cero."},{"q":"En el taller del motor eléctrico, ¿cómo se verifica la energía cero?","o":["Mirando que la luz piloto esté apagada","Preguntando al operador","Midiendo 0 V con un voltímetro aguas abajo de los automáticos","Tocando la carcasa del motor"],"a":2,"e":"La verificación se hace con instrumento: voltímetro probado, midiendo aguas abajo de los dispositivos de desconexión."},{"q":"¿Quién puede retirar un candado personal de bloqueo?","o":["El supervisor de turno","Cualquier trabajador autorizado","Solo el trabajador que lo instaló","El operador del equipo"],"a":2,"e":"El candado es la protección personal de quien lo instaló. Solo esa persona puede retirarlo, conforme al procedimiento de la empresa."},{"q":"Antes de reenergizar un equipo se debe:","o":["Retirar los resguardos para facilitar la prueba","Verificar área despejada, herramientas retiradas, resguardos instalados y personal avisado","Energizar primero y avisar después","Dejar las tarjetas puestas durante la operación"],"a":1,"e":"La reactivación segura exige área despejada, resguardos repuestos, personal en zona segura y aviso a los afectados."}]}]};
+const PASS = 15, TOTAL_Q = 20;
+const $ = (s) => document.querySelector(s);
+const app = $("#app"), au = $("#au");
+const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const ICON = {
+  home: '<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/>',
+  prev: '<path d="M15 5l-7 7 7 7"/>', next: '<path d="M9 5l7 7-7 7"/>',
+  play: '<path d="M7 4l13 8-13 8z" fill="currentColor"/>', pause: '<path d="M7 4v16M17 4v16" stroke-width="3.4"/>',
+  check: '<path d="M4 12.5l5 5L20 6.5"/>', x: '<path d="M6 6l12 12M18 6L6 18"/>',
+  info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',
+  warn: '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/>',
+  lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/>',
+  head: '<path d="M4 15v-3a8 8 0 0116 0v3"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/>',
+  quiz: '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 12l2 2 4-4"/>',
+  award: '<circle cx="12" cy="9" r="6"/><path d="M8.5 14l-1.5 7 5-3 5 3-1.5-7"/>',
+};
+const ic = (n) => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${ICON[n]}</svg>`;
+$("#back").innerHTML = ic("home"); $("#prev").innerHTML = ic("prev"); $("#next").innerHTML = ic("next"); $("#play").innerHTML = ic("play");
+
+/* ---------- progreso (solo en este dispositivo) ---------- */
+const KEY = "curso-loto-ssgi-v1";
+let ST = { done: {}, quiz: {}, name: "", auto: true, rate: 1 };
+try { const s = JSON.parse(localStorage.getItem(KEY) || "null"); if (s) ST = Object.assign(ST, s); } catch (e) {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(ST)); } catch (e) {} };
+
+const UNITS = [{ id: "intro", n: "", title: "Introducción", sub: "Bienvenida y objetivos del curso", lessons: DATA.intro.lessons, quiz: [] },
+  ...DATA.modules.map((m) => ({ id: m.n, n: m.n, title: m.title, sub: m.sub, lessons: m.lessons, quiz: m.quiz }))];
+const allLessons = UNITS.reduce((a, u) => a + u.lessons.length, 0);
+const doneCount = (u) => u.lessons.filter((_, i) => ST.done[u.id + "-" + i]).length;
+const totalDone = () => UNITS.reduce((a, u) => a + doneCount(u), 0);
+const quizTotal = () => DATA.modules.reduce((a, m) => a + (ST.quiz[m.n] ?? 0), 0);
+const quizzesDone = () => DATA.modules.filter((m) => ST.quiz[m.n] != null).length;
+const overallPct = () => Math.round(((totalDone() + quizzesDone() * 3) / (allLessons + DATA.modules.length * 3)) * 100);
+
+/* ---------- audio ---------- */
+let curAudio = "";
+function setAudio(src, autoplay) {
+  au.pause(); curAudio = src; au.src = src; au.playbackRate = ST.rate; $("#trk").style.width = "0";
+  setPlayIcon(false);
+  if (autoplay && ST.auto) au.play().then(() => setPlayIcon(true)).catch(() => setPlayIcon(false));
+}
+function setPlayIcon(on) { $("#play").innerHTML = ic(on ? "pause" : "play"); $("#play").setAttribute("aria-label", on ? "Pausar narración" : "Reproducir narración"); }
+$("#play").onclick = () => { if (au.paused) { au.playbackRate = ST.rate; au.play().then(() => setPlayIcon(true)).catch(() => {}); } else { au.pause(); setPlayIcon(false); } };
+au.ontimeupdate = () => { if (au.duration) $("#trk").style.width = (au.currentTime / au.duration) * 100 + "%"; };
+au.onended = () => setPlayIcon(false);
+au.onpause = () => setPlayIcon(false);
+$("#tr").onclick = (e) => { if (!au.duration) return; const r = e.currentTarget.getBoundingClientRect(); au.currentTime = ((e.clientX - r.left) / r.width) * au.duration; };
+$("#auto").checked = ST.auto; $("#auto").onchange = (e) => { ST.auto = e.target.checked; save(); };
+const RATES = [1, 1.25, 1.5]; $("#spd").textContent = ST.rate + "×";
+$("#spd").onclick = () => { ST.rate = RATES[(RATES.indexOf(ST.rate) + 1) % RATES.length]; au.playbackRate = ST.rate; $("#spd").textContent = String(ST.rate).replace(".", ",") + "×"; save(); };
+
+/* ---------- navegación ---------- */
+function chrome({ sub, title, back, dock, pct }) {
+  $("#tsub").textContent = sub; $("#ttl").textContent = title; $("#back").hidden = !back;
+  $("#dock").hidden = !dock; $("#bar").style.width = (pct ?? 0) + "%";
+  if (!dock) { au.pause(); }
+  window.scrollTo(0, 0);
+}
+$("#back").onclick = home;
+
+/* ---------- inicio ---------- */
+function home() {
+  const p = overallPct();
+  const next = findNext();
+  chrome({ sub: "SSGI OTEC · Curso en tu teléfono", title: "Aislamiento y Bloqueo de Energías", back: false, dock: false, pct: p });
+  const units = UNITS.map((u, k) => {
+    const d = doneCount(u), q = ST.quiz[u.id];
+    const qp = u.quiz.length ? (q == null ? `<span class="pill">${ic("quiz")} Test pendiente</span>` : `<span class="pill ${q >= 4 ? "ok" : "bad"}">${ic("quiz")} Test ${q}/5</span>`) : "";
+    return `<button class="tagc ${u.id === "intro" ? "intro" : ""}" data-u="${k}">
+      <span class="hole">${u.n || ic("head").replace('class="i"', 'class="i" style="font-size:26px"')}</span>
+      <span><span class="lbl">${u.n ? "Módulo " + u.n : "Para empezar"}</span><h3>${esc(u.title)}</h3><p>${esc(u.sub)}</p>
+      <span class="meta"><span class="pill ${d === u.lessons.length ? "ok" : ""}">${d === u.lessons.length ? ic("check") : ""} ${d}/${u.lessons.length} lecciones</span>${qp}</span></span></button>`;
+  }).join("");
+  const tq = quizTotal(), qd = quizzesDone();
+  app.innerHTML = `
+  <section class="hero"><div class="wrap">
+    <span class="eyebrow">Control de energías peligrosas · LOTO</span>
+    <h1>Aislamiento y Bloqueo de Energías</h1>
+    <div class="hrow"><div class="ring" style="--p:${p}"><b>${p}%</b></div>
+      <p>4 módulos con narración del relator Néstor Zamora Neira, 2 videos de práctica y un test de 5 preguntas por módulo.</p></div>
+    <button class="btn" id="go">${ic("play")} ${totalDone() ? "Continuar" : "Comenzar el curso"}</button>
+  </div></section>
+  <div class="wrap home">
+    <span class="sect">Contenido</span>${units}
+    <span class="sect">Mis resultados</span>
+    <div class="res">
+      ${DATA.modules.map((m) => `<div class="row"><span>Test Módulo ${m.n}</span><b>${ST.quiz[m.n] == null ? "—" : ST.quiz[m.n] + " / 5"}</b></div>`).join("")}
+      <div class="row"><span class="tot">Total</span><span class="tot">${tq} / ${TOTAL_Q}</span></div>
+      <p class="small">Para aprobar necesitas ${PASS} de ${TOTAL_Q} respuestas correctas (75 %). ${qd < 4 ? `Te faltan ${4 - qd} test${4 - qd > 1 ? "s" : ""}.` : ""}</p>
+      ${qd === 4 ? `<button class="btn ${tq >= PASS ? "" : "sec"}" id="fin">${ic("award")} ${tq >= PASS ? "Ver mi constancia" : "Ver resultado final"}</button>` : ""}
+    </div>
+    <p class="small">Tu avance se guarda solo en este teléfono y navegador.</p>
+  </div>`;
+  app.querySelectorAll("[data-u]").forEach((b) => (b.onclick = () => lesson(+b.dataset.u, 0, false)));
+  $("#go").onclick = () => (next.quiz ? quiz(next.u) : lesson(next.u, next.i, true));
+  const f = $("#fin"); if (f) f.onclick = finale;
+}
+function findNext() {
+  for (let k = 0; k < UNITS.length; k++) {
+    const u = UNITS[k];
+    for (let i = 0; i < u.lessons.length; i++) if (!ST.done[u.id + "-" + i]) return { u: k, i };
+    if (u.quiz.length && ST.quiz[u.id] == null) return { u: k, quiz: true };
+  }
+  return { u: 0, i: 0 };
+}
+
+/* ---------- lección ---------- */
+function blocks(b) {
+  switch (b.k) {
+    case "lead": return (b.label ? `<span class="lbl">${esc(b.label)}</span>` : "") + `<p class="lead">${esc(b.t)}</p>`;
+    case "def": return `<div class="def"><span class="lbl">${esc(b.term)}</span><p>${esc(b.t)}</p></div>`;
+    case "img": return `<div class="ph"><img src="${b.src}" alt="" loading="lazy"></div>`;
+    case "imgs": return `<div class="phs">${b.srcs.map((s) => `<div class="ph"><img src="${s}" alt="" loading="lazy"></div>`).join("")}</div>`;
+    case "list": { const mk = (i) => (b.style === "check" ? ic("check") : b.style === "x" ? ic("x") : b.style === "num" ? i + 1 : "");
+      return (b.label ? `<span class="lbl">${esc(b.label)}</span>` : "") + `<ul class="ls ${b.style}">${b.items.map((t, i) => `<li><span class="mk">${mk(i)}</span><span>${esc(t)}</span></li>`).join("")}</ul>`; }
+    case "cards": return `<div class="cards">${b.items.map((c) => `<div class="card ${c.tone || ""} ${c.img ? "img" : ""}">${c.img ? `<span class="pi"><img src="${c.img}" alt="" loading="lazy"></span>` : ""}${c.tag ? `<span class="ctag">${esc(c.tag)}</span>` : ""}<h3>${esc(c.h)}</h3><p>${esc(c.d)}</p></div>`).join("")}</div>`;
+    case "groups": return `<div class="cards">${b.items.map((g) => `<div class="card"><h3>${esc(g.h)}</h3><ul class="ls bullet">${g.items.map((t) => `<li><span class="mk"></span><span>${esc(t)}</span></li>`).join("")}</ul></div>`).join("")}</div>`;
+    case "energy": return `<div class="energy">${b.items.map((r) => `<div class="card"><h3>${esc(r.h)}</h3><dl><dt>Ejemplos</dt><dd>${esc(r.ej)}</dd><dt>Control</dt><dd>${esc(r.c)}</dd></dl></div>`).join("")}</div>`;
+    case "chips": return (b.label ? `<span class="lbl">${esc(b.label)}</span>` : "") + `<div class="chips">${b.items.map((t) => `<span>${esc(t)}</span>`).join("")}</div>`;
+    case "callout": return `<div class="note ${b.tone || ""}">${ic(b.tone === "red" ? "warn" : b.tone === "dark" ? "lock" : "info")}<span>${esc(b.t)}</span></div>`;
+    case "swatches": return `<div class="sw">${b.items.map((c) => `<div><img src="${c.img}" alt="" loading="lazy">${esc(c.t)}</div>`).join("")}</div>`;
+    case "steps": return `<ol class="st">${b.items.map((s) => `<li><span><b>${esc(s.h)}</b><span>${esc(s.d)}</span></span></li>`).join("")}</ol>`;
+    case "video": return `<video controls playsinline preload="metadata" poster="${b.poster}" src="${b.src}"></video>`;
+  }
+  return "";
+}
+function lesson(k, i, autoplay) {
+  const u = UNITS[k], L = u.lessons[i];
+  ST.done[u.id + "-" + i] = 1; save();
+  chrome({ sub: u.n ? "Módulo " + u.n : "Introducción", title: u.title, back: true, dock: true, pct: ((i + 1) / u.lessons.length) * 100 });
+  app.innerHTML = `<div class="wrap stage"><article class="slide">
+    <span class="chip">${u.n ? "Módulo " + u.n : "Introducción"} · ${i + 1} de ${u.lessons.length}</span>
+    <h2>${esc(L.title)}</h2>${L.blocks.map(blocks).join("")}
+    ${i === u.lessons.length - 1 ? (u.quiz.length ? `<button class="btn" id="toq">${ic("quiz")} Ir al test del Módulo ${u.n}</button>` : `<button class="btn" id="toq">${ic("next")} Comenzar el Módulo I</button>`) : ""}
+  </article></div>`;
+    const v = app.querySelector("video"); if (v) v.addEventListener("play", () => { au.pause(); });
+  setAudio(L.audio, autoplay);
+  $("#prev").disabled = i === 0 && k === 0;
+  $("#prev").onclick = () => (i > 0 ? lesson(k, i - 1, true) : k > 0 ? lesson(k - 1, UNITS[k - 1].lessons.length - 1, true) : null);
+  const goNext = () => (i < u.lessons.length - 1 ? lesson(k, i + 1, true) : u.quiz.length ? quiz(k) : lesson(k + 1, 0, true));
+  $("#next").onclick = goNext;
+  const t = $("#toq"); if (t) t.onclick = goNext;
+}
+
+/* ---------- test ---------- */
+function quiz(k) {
+  const u = UNITS[k]; const res = []; let qi = 0;
+  const render = () => {
+    const Q = u.quiz[qi];
+    chrome({ sub: "Test · Módulo " + u.n, title: u.title, back: true, dock: false, pct: (qi / u.quiz.length) * 100 });
+    app.innerHTML = `<div class="wrap stage"><section class="slide">
+      <div class="dots">${u.quiz.map((_, j) => `<i class="${j < qi ? (res[j] ? "ok" : "bad") : j === qi ? "cur" : ""}"></i>`).join("")}</div>
+      <span class="qn">Pregunta ${qi + 1} de ${u.quiz.length}</span>
+      <p class="qt">${esc(Q.q)}</p>
+      <div class="opts">${Q.o.map((o, j) => `<button class="opt" data-j="${j}"><span class="l">${"ABCD"[j]}</span><span>${esc(o)}</span><span class="m"></span></button>`).join("")}</div>
+      <div id="fb"></div></section></div>`;
+    app.querySelectorAll(".opt").forEach((b) => (b.onclick = () => {
+      const j = +b.dataset.j, ok = j === Q.a; res[qi] = ok;
+      app.querySelectorAll(".opt").forEach((x, xi) => { x.disabled = true; if (xi === Q.a) { x.classList.add("ok"); x.querySelector(".m").innerHTML = ic("check"); } else if (xi === j) { x.classList.add("bad"); x.querySelector(".m").innerHTML = ic("x"); } else x.classList.add("dim"); });
+      $("#fb").innerHTML = `<div class="fb ${ok ? "ok" : "bad"}"><b>${ok ? "¡Correcto!" : "Respuesta incorrecta"}</b><p>${ok ? "" : `La correcta es la ${"ABCD"[Q.a]}. `}${esc(Q.e)}</p></div>
+        <div style="height:12px"></div><button class="btn" id="nq">${qi < u.quiz.length - 1 ? "Siguiente pregunta" : "Ver mi resultado"} ${ic("next")}</button>`;
+      $("#nq").onclick = () => { if (qi < u.quiz.length - 1) { qi++; render(); } else done(); };
+      $("#nq").scrollIntoView({ behavior: "smooth", block: "end" });
+    }));
+  };
+  const done = () => {
+    const sc = res.filter(Boolean).length;
+    ST.quiz[u.id] = Math.max(sc, ST.quiz[u.id] ?? 0); save();
+    chrome({ sub: "Test · Módulo " + u.n, title: u.title, back: true, dock: false, pct: 100 });
+    const nextU = UNITS[k + 1];
+    app.innerHTML = `<div class="wrap stage"><section class="slide" style="text-align:center;justify-items:center">
+      <span class="qn">Resultado del test</span><div class="big">${sc}/5</div>
+      <h2>${sc === 5 ? "¡Excelente!" : sc >= 4 ? "¡Muy bien!" : sc >= 3 ? "Vas bien, repasa un poco" : "Te recomendamos repasar el módulo"}</h2>
+      <p class="lead">Se guarda tu mejor puntaje: ${ST.quiz[u.id]}/5.</p>
+      <div class="dots" style="width:100%">${res.map((r) => `<i class="${r ? "ok" : "bad"}"></i>`).join("")}</div>
+      ${nextU ? `<button class="btn" id="nx">${ic("next")} Continuar con el Módulo ${nextU.n}</button>` : quizzesDone() === 4 ? `<button class="btn" id="nx">${ic("award")} Ver resultado final</button>` : ""}
+      <button class="btn sec" id="rp">Repetir el test</button>
+      <button class="btn sec" id="rv">Repasar las lecciones</button>
+    </section></div>`;
+    const nx = $("#nx"); if (nx) nx.onclick = () => (nextU ? lesson(k + 1, 0, true) : finale());
+    $("#rp").onclick = () => quiz(k); $("#rv").onclick = () => lesson(k, 0, false);
+  };
+  render();
+}
+
+/* ---------- resultado final ---------- */
+function finale() {
+  const tq = quizTotal(), ok = tq >= PASS && quizzesDone() === 4;
+  chrome({ sub: "Resultado final", title: "Aislamiento y Bloqueo de Energías", back: true, dock: false, pct: 100 });
+  const fecha = new Date().toLocaleDateString("es-CL", { day: "numeric", month: "long", year: "numeric" });
+  app.innerHTML = `<div class="wrap stage"><section class="slide">
+    <h2>${ok ? "¡Aprobaste el curso!" : "Aún no alcanzas el puntaje de aprobación"}</h2>
+    <p class="lead">Obtuviste ${tq} de ${TOTAL_Q} respuestas correctas (${Math.round((tq / TOTAL_Q) * 100)} %). ${ok ? "" : `Necesitas ${PASS}. Repite los tests de los módulos con menor puntaje.`}</p>
+    ${ok ? `<label class="lbl" for="nm">Tu nombre completo</label><input type="text" id="nm" placeholder="Ej.: Juan Pérez Soto" value="${esc(ST.name)}" autocomplete="name">
+    <div class="cert"><span class="eyebrow" style="color:var(--ink-2)">Constancia de término</span>
+      <h3>Aislamiento y Bloqueo de Energías</h3><span class="small">Se deja constancia de que</span>
+      <span class="who" id="who">${esc(ST.name || "Tu nombre")}</span>
+      <span class="small">completó el curso con ${tq}/${TOTAL_Q} respuestas correctas el ${fecha}.</span>
+      <span class="small">SSGI OTEC · Relator: Néstor Zamora Neira</span></div>
+    <p class="small">Toma una captura de pantalla y envíala a tu relator. Esta constancia no reemplaza el certificado oficial que emite la OTEC.</p>` : ""}
+    <button class="btn sec" id="hm">${ic("home")} Volver al inicio</button>
+  </section></div>`;
+  const nm = $("#nm"); if (nm) nm.oninput = () => { ST.name = nm.value; $("#who").textContent = nm.value || "Tu nombre"; save(); };
+  $("#hm").onclick = home;
+}
+home();
+</script>
+
+<script>
+if ("serviceWorker" in navigator) { window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {})); }
+</script>
+</body>
+</html>
